@@ -1,0 +1,10 @@
+<fieldset {% if e.getID() %}id="{{ e.getID() }}"{% endif %} {% if e.getAbsName() %}name="{{ e.getAbsName() }}"{% endif %}>
+    {% if e.getLegend() %}
+    <legend>
+        {{ e.getLegend()|default('',True)|escape }}
+    </legend>
+    {% endif %}
+    {% for element in e.getElements() %}
+    {{ element.render() }}
+    {% endfor %}
+</fieldset>

@@ -1,0 +1,13 @@
+{% extends '_field.jinja2' %}
+{% block element %}
+<textarea 
+    id="{{ e.getID()|escape }}"
+    name="{{ e.getAbsName()|escape }}"
+    type="{{ type }}" 
+    placeholder="{{ e.getPlaceholder()|default('',True)|escape }}"
+    class="{% if e.getState().isError() %}error{% endif %}"
+    {% if e.getState().isReadonly() %}readonly{% endif %}
+    {% if e.getState().isDisabled() %}disabled{% endif %}
+    autocomplete="off"
+>{{ e.getValue()|default('',True)|escape }}</textarea>
+{% endblock %}

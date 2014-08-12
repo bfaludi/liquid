@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ header }} Example</h1>
+{{ renderer() }}
+<div class="submitted">
+    Submitted values: {{ printer( code = results ) }}
+</div>
+
+<h2>Source Code</h2>
+{{ printer( current_function ) }}
+{% endblock %}

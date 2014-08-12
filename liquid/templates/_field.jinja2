@@ -1,0 +1,12 @@
+<div class="form-element{% if e.getClass() %} {{ e.getClass() }}{% endif %}{% if e.getState().isHidden() or type == 'hidden' %} hidden{% endif %}">
+    <label for="{{ e.getID()|escape }}">
+    {{ e.getLabel()|default('',True)|escape }}{% if e.getLabel() %}: {% include '_required.jinja2' %}{% endif %}
+    </label>
+    {% block element %}{% endblock %}
+    {{ error_widget.render( e ) }}
+    {% if e.getHint() %}
+    <div class="item hint">
+        {{ e.getHint()|default('',True)|escape }}
+    </div>
+    {% endif %}
+</div>

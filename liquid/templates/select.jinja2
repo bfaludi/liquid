@@ -1,0 +1,22 @@
+{% extends '_field.jinja2' %}
+{% block element %}
+<select 
+    id="{{ e.getID()|escape }}"
+    name="{{ e.getAbsName()|escape }}"
+    placeholder="{{ e.getPlaceholder()|default('',True)|escape }}"
+    class="{% if e.getState().isError() %}error{% endif %}"
+    {% if e.isMultiple() %}multiple{% endif %}
+    {% if e.getState().isReadonly() %}readonly{% endif %}
+    {% if e.getState().isDisabled() %}disabled{% endif %}
+    autocomplete="off"
+>
+    {% for option in e.getOptions() %}
+    <option 
+        value="{% if option.getValue( e ) is not none %}{{ option.getValue( e )|escape }}{% endif %}" 
+        {% if ( not e.isMultiple() and option.getValue( e ) == e.getValue() ) or ( e.isMultiple() and option.getValue( e ) in e.getValue() ) %}selected{% endif %}
+    >
+        {{ option.getLabel()|escape }}
+    </option>
+    {% endfor %}
+</select>
+{% endblock %}

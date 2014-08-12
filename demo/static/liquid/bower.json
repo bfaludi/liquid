@@ -1,0 +1,17 @@
+{
+  "name": "gulp-project",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "modernizr": "~2.8.2",
+    "normalize.css": "~3.0.1",
+    "jquery-ui": "~1.11.0"
+  },
+  "overrides": {
+    "modernizr": {
+      "main": "modernizr.js",
+      "ignore": true
+    }
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,46 @@
+.tooltip {
+	position: relative;
+
+	&:hover {
+		&:before {
+			content: attr(data-tooltip);
+			z-index: 1;
+			display: block;
+			position: absolute;
+			left: 0;
+			bottom: rem-calc(45);
+			min-width: rem-calc(245);
+			padding: rem-calc(20);
+			border-radius: $global-radius;
+			background-color: #fff9db;
+			box-shadow: 0 3px 5px rgba(0,0,0,.15);
+		}
+
+		&:after {
+			content: "▼";
+			z-index: 2;
+			display: block;
+			position: absolute;
+			left: rem-calc(50);
+			bottom: rem-calc(32);
+			transform: scaleX(2.5);
+			text-shadow: 0 4px 5px rgba(0,0,0,.13);
+			color: #fff9db;
+		}
+	}
+
+	&.error {
+		&:before {
+			left: auto;
+			right: 0;
+			background: $error-color;
+			color: #fff;
+		}
+
+		&:after {
+			left: auto;
+			right: rem-calc(20);
+			color: $error-color;
+		}
+	}
+}

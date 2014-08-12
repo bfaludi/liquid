@@ -1,0 +1,97 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+*/
+$checkmark-inactive-x: 50px;
+$checkmark-inactive-y: 23px;
+$checkmark-inactive-offset-x: -50px;
+$checkmark-inactive-offset-y: -23px;
+$checkmark-inactive-width: 14px;
+$checkmark-inactive-height: 10px;
+$checkmark-inactive-total-width: 72px;
+$checkmark-inactive-total-height: 59px;
+$checkmark-inactive-image: '../images/sprite.png';
+$checkmark-inactive: 50px 23px -50px -23px 14px 10px 72px 59px '../images/sprite.png';
+$checkmark-x: 50px;
+$checkmark-y: 33px;
+$checkmark-offset-x: -50px;
+$checkmark-offset-y: -33px;
+$checkmark-width: 14px;
+$checkmark-height: 10px;
+$checkmark-total-width: 72px;
+$checkmark-total-height: 59px;
+$checkmark-image: '../images/sprite.png';
+$checkmark: 50px 33px -50px -33px 14px 10px 72px 59px '../images/sprite.png';
+$error-icon-x: 50px;
+$error-icon-y: 0px;
+$error-icon-offset-x: -50px;
+$error-icon-offset-y: 0px;
+$error-icon-width: 22px;
+$error-icon-height: 23px;
+$error-icon-total-width: 72px;
+$error-icon-total-height: 59px;
+$error-icon-image: '../images/sprite.png';
+$error-icon: 50px 0px -50px 0px 22px 23px 72px 59px '../images/sprite.png';
+$select-arrow-inactive-x: 0px;
+$select-arrow-inactive-y: 50px;
+$select-arrow-inactive-offset-x: 0px;
+$select-arrow-inactive-offset-y: -50px;
+$select-arrow-inactive-width: 15px;
+$select-arrow-inactive-height: 9px;
+$select-arrow-inactive-total-width: 72px;
+$select-arrow-inactive-total-height: 59px;
+$select-arrow-inactive-image: '../images/sprite.png';
+$select-arrow-inactive: 0px 50px 0px -50px 15px 9px 72px 59px '../images/sprite.png';
+$select-arrow-x: 15px;
+$select-arrow-y: 50px;
+$select-arrow-offset-x: -15px;
+$select-arrow-offset-y: -50px;
+$select-arrow-width: 15px;
+$select-arrow-height: 9px;
+$select-arrow-total-width: 72px;
+$select-arrow-total-height: 59px;
+$select-arrow-image: '../images/sprite.png';
+$select-arrow: 15px 50px -15px -50px 15px 9px 72px 59px '../images/sprite.png';
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}

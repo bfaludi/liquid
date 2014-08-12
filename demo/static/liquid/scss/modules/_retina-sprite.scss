@@ -1,0 +1,97 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+*/
+$checkmark-2x-x: 100px;
+$checkmark-2x-y: 46px;
+$checkmark-2x-offset-x: -100px;
+$checkmark-2x-offset-y: -46px;
+$checkmark-2x-width: 28px;
+$checkmark-2x-height: 20px;
+$checkmark-2x-total-width: 144px;
+$checkmark-2x-total-height: 118px;
+$checkmark-2x-image: '../images/retina-sprite.png';
+$checkmark-2x: 100px 46px -100px -46px 28px 20px 144px 118px '../images/retina-sprite.png';
+$checkmark-inactive-2x-x: 100px;
+$checkmark-inactive-2x-y: 66px;
+$checkmark-inactive-2x-offset-x: -100px;
+$checkmark-inactive-2x-offset-y: -66px;
+$checkmark-inactive-2x-width: 28px;
+$checkmark-inactive-2x-height: 20px;
+$checkmark-inactive-2x-total-width: 144px;
+$checkmark-inactive-2x-total-height: 118px;
+$checkmark-inactive-2x-image: '../images/retina-sprite.png';
+$checkmark-inactive-2x: 100px 66px -100px -66px 28px 20px 144px 118px '../images/retina-sprite.png';
+$error-icon-2x-x: 100px;
+$error-icon-2x-y: 0px;
+$error-icon-2x-offset-x: -100px;
+$error-icon-2x-offset-y: 0px;
+$error-icon-2x-width: 44px;
+$error-icon-2x-height: 46px;
+$error-icon-2x-total-width: 144px;
+$error-icon-2x-total-height: 118px;
+$error-icon-2x-image: '../images/retina-sprite.png';
+$error-icon-2x: 100px 0px -100px 0px 44px 46px 144px 118px '../images/retina-sprite.png';
+$select-arrow-2x-x: 0px;
+$select-arrow-2x-y: 100px;
+$select-arrow-2x-offset-x: 0px;
+$select-arrow-2x-offset-y: -100px;
+$select-arrow-2x-width: 30px;
+$select-arrow-2x-height: 18px;
+$select-arrow-2x-total-width: 144px;
+$select-arrow-2x-total-height: 118px;
+$select-arrow-2x-image: '../images/retina-sprite.png';
+$select-arrow-2x: 0px 100px 0px -100px 30px 18px 144px 118px '../images/retina-sprite.png';
+$select-arrow-inactive-2x-x: 30px;
+$select-arrow-inactive-2x-y: 100px;
+$select-arrow-inactive-2x-offset-x: -30px;
+$select-arrow-inactive-2x-offset-y: -100px;
+$select-arrow-inactive-2x-width: 30px;
+$select-arrow-inactive-2x-height: 18px;
+$select-arrow-inactive-2x-total-width: 144px;
+$select-arrow-inactive-2x-total-height: 118px;
+$select-arrow-inactive-2x-image: '../images/retina-sprite.png';
+$select-arrow-inactive-2x: 30px 100px -30px -100px 30px 18px 144px 118px '../images/retina-sprite.png';
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}

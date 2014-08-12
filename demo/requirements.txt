@@ -1,0 +1,4 @@
+pycountry
+flask
+python-liquid
+pygments

@@ -1,0 +1,9 @@
+<div class="form-element{% if e.getClass() %} {{ e.getClass() }}{% endif %}{% if e.getState().isHidden() %} hidden{% endif %}">
+    {% if e.getLabel() %}
+    <label for="{{ e.getID()|escape }}">
+    {{ e.getLabel()|default('',True)|escape }}{% if e.getLabel() %}:{% endif %}
+    </label>
+    {% endif %}
+    {% block element %}
+    {% endblock %}
+</div>

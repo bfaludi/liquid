@@ -1,0 +1,5 @@
+{% if e.getState().getError() %}
+<div class="item error inline">
+    {{ e.getState().getError()|default('',True)|escape }}
+</div>
+{% endif %}

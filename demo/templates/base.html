@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="{{ url_for('static', filename='liquid/bower_components/modernizr/modernizr.js') }}"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:700,300,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='liquid/bower_components/normalize.css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='liquid/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Liquid Form Management</title>
+</head>
+<body>
+    <nav>
+        <div class="logo">Liquid</div>
+        <ul>
+            <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox Fields</a></li>
+            <li><a href="{{ url_for('.input_fields') }}">Input Fields</a></li>
+            <li><a href="{{ url_for('.length_validator') }}">Length Validator</a></li>
+            <li><a href="{{ url_for('.login_with_button') }}">Login with Button</a></li>
+            <li><a href="{{ url_for('.match_validator_with_hint') }}">Match Validator with Hint</a></li>
+            <li><a href="{{ url_for('.radio_field') }}">Radio Field</a></li>
+            <li><a href="{{ url_for('.range_validator') }}">Range Validator</a></li>
+            <li><a href="{{ url_for('.registration') }}">Registration</a></li>
+            <li><a href="{{ url_for('.select_fields') }}">Select and Multiple Select Fields</a></li>
+            <li><a href="{{ url_for('.selected_validator') }}">Selected Validator</a></li>
+        </ul>
+    </nav>
+    <section>
+        {% block content %}
+        {% endblock %}
+    <section>
+    <script src="{{ url_for('static', filename='liquid/bower_components/jquery/dist/jquery.js') }}"</script>
+    <script src="{{ url_for('static', filename='liquid/bower_components/jquery-ui/ui/core.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/bower_components/jquery-ui/ui/widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/bower_components/jquery-ui/ui/mouse.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/bower_components/jquery-ui/ui/draggable.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/js/vendor/dropkick.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/js/vendor/dropkick.jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid/js/liquid.js') }}"></script>
+</body>

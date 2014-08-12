@@ -1,0 +1,14 @@
+{% if name == 'submit' %}
+<button 
+    type="{{ name }}" 
+    name="{{ name }}" 
+    class="button {% if is_primary %}primary{% endif %}"
+    value="{{ name }}"
+>{{ label }}</button>
+{% else %}
+<a
+    href="{{ url }}" 
+    class="button {% if is_primary %}primary{% endif %}"
+>{{ label }}</a>
+{% endif %}
+

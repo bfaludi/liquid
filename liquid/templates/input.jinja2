@@ -1,0 +1,14 @@
+{% extends '_field.jinja2' %}
+{% block element %}
+<input 
+    id="{{ e.getID()|escape }}"
+    name="{{ e.getAbsName()|escape }}"
+    type="{{ type }}" 
+    value="{{ e.getValue()|default('',True)|escape }}" 
+    placeholder="{{ e.getPlaceholder()|default('',True)|escape }}"
+    class="{% if e.getState().isError() %}error{% endif %}"
+    {% if e.getState().isReadonly() %}readonly{% endif %}
+    {% if e.getState().isDisabled() %}disabled{% endif %}
+    autocomplete="off"
+>
+{% endblock %}

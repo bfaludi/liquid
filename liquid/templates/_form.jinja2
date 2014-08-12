@@ -1,0 +1,9 @@
+<form method="POST" class="liquid {% if e.getClass() %}{{ e.getClass() }}{% endif %}" novalidate>
+    {{ e.getElement().render() }}
+    <div class="form-element submit">
+        <label></label>
+        {% for button in e.getButtons() %}
+        {{ button.render( e ) }}
+        {% endfor %}
+    </div>
+</form>

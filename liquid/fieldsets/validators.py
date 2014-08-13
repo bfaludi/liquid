@@ -237,3 +237,91 @@ class LessAndEqual( Less ):
 
     # Allow equals
     equal = True
+
+class NoneOf( FieldSetValidator ):
+
+    """
+    Checks the FieldSet has any value filled out.
+    """
+
+    # Default error message if the validation fails
+    msg = u'Please do not fill out this block.'
+
+    # bool
+    @invalidateOnError
+    def isValid( self, element ):
+
+        """
+        Checks the FieldSet has any value filled out.
+
+        @param element: Checked object (Field, FieldSet, etc.)
+        @type element: form.Element
+
+        @return: FieldSet has any value filled out.
+        @rtype: bool
+        """
+
+        for name in self.field_names or element.getElementNames():
+            if element.getField( name ).getValue():
+                return False
+
+        return True
+
+class AnyOf( FieldSetValidator ):
+
+    """
+    FieldSet has any value filled out.
+    """
+
+    # Default error message if the validation fails
+    msg = u'Please fill out at least one field.'
+
+    # bool
+    @invalidateOnError
+    def isValid( self, element ):
+
+        """
+        Checks the FieldSet has any value filled out.
+
+        @param element: Checked object (Field, FieldSet, etc.)
+        @type element: form.Element
+
+        @return: FieldSet has any value filled out.
+        @rtype: bool
+        """
+
+        for name in self.field_names or element.getElementNames():
+            if element.getField( name ).getValue():
+                return True
+
+        return False
+
+class AllOf( FieldSetValidator ):
+
+    """
+    Checks the FieldSet has all of the fields filled out.
+    """
+
+    # Default error message if the validation fails
+    msg = u'Please fill out all of the fields.'
+
+    # bool
+    @invalidateOnError
+    def isValid( self, element ):
+
+        """
+        Checks the FieldSet has all of the fields filled out.
+
+        @param element: Checked object (Field, FieldSet, etc.)
+        @type element: form.Element
+
+        @return: FieldSet has all of the fields filled out.
+        @rtype: bool
+        """
+
+        for name in self.field_names or element.getElementNames():
+            if not element.getField( name ).getValue():
+                return False
+
+        return True
+

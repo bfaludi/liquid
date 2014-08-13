@@ -4,7 +4,12 @@
 <h1>{{ header }} Example</h1>
 {{ renderer() }}
 <div class="submitted">
-    Submitted values: {{ printer( code = results ) }}
+    {% if valid is none %}
+    Please submit the form!
+    {% else %}
+    Submitted values for <b>{% if valid %}valid{% else %}invalid{% endif %}</b> form: 
+    {{ printer( code = results ) }}
+    {% endif %}
 </div>
 
 <h2>Source Code</h2>

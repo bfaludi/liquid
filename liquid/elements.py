@@ -409,6 +409,18 @@ class ElementCollector( object ):
 
         return self._elements
 
+    # list<unicode>
+    def getElementNames( self ):
+
+        """
+        Returns the registered elements name.
+
+        @return: List of elements name.
+        @rtype: list<unicode>
+        """
+
+        return [ r.getName() for r in self.getElements() ]
+
     # void
     def setErrorWidgets( self, widget ):
 

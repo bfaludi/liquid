@@ -1,5 +1,5 @@
 {% if e.getState().isError() %}
-<div class="item error inline">
+<div class="error fieldset">
     {{ e.getState().getError()|default('',True)|escape }}
 </div>
 {% endif %}

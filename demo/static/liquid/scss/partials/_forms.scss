@@ -33,6 +33,12 @@ textarea {
 
 form {
 	padding: rem-calc(25);
+	border: 1px solid #d6dcde;
+    margin: 0;
+    background: $form-bg-color;
+	font-family: 'Roboto', sans-serif;
+	color: $default-text-color;
+	line-height: 1.4em;
 }
 
 fieldset {
@@ -40,10 +46,23 @@ fieldset {
 	padding: 0;
 	margin: 0;
 
-	legend {
+	& > div.error {
+		color: $disabled-bg-color;
+		background: $error-color;
+		padding: 20px;
+		border-radius: 3px;
+	}
+
+	&.error {
+		border: 1px solid $input-border-color;
+		border-radius: 3px;
+	}
+
+	legend,
+	.legend {
 		padding: rem-calc(20) rem-calc(30);
 		position: relative;
-		left: 230px;
+		left: 180px;
 		color: $secondary-text-color;
 	}
 }
@@ -59,7 +78,7 @@ fieldset {
 	}
 
 	label {
-		width: 200px;
+		width: 150px;
 		float: left;
 		text-align: right;
 		padding: rem-calc(10) rem-calc(30);
@@ -107,7 +126,7 @@ fieldset {
 			clear: both;
 			width: 500px;
 			position: relative;
-			left: 260px;
+			left: 210px;
 			padding: rem-calc(10) 0;
 		}
 
@@ -149,7 +168,6 @@ input {
 		}
 	}
 }
-
 
 input[type="radio"] {
 	@extend .visuallyhidden;

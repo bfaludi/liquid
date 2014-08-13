@@ -303,16 +303,30 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
     border-color: #fc492b; }
 
 form {
-  padding: 1.5625rem; }
+  padding: 1.5625rem;
+  border: 1px solid #d6dcde;
+  margin: 0;
+  background: #fafafa;
+  font-family: 'Roboto', sans-serif;
+  color: #262626;
+  line-height: 1.4em; }
 
 fieldset {
   border: none;
   padding: 0;
   margin: 0; }
-  fieldset legend {
+  fieldset > div.error {
+    color: #f8f8f8;
+    background: #fc492b;
+    padding: 20px;
+    border-radius: 3px; }
+  fieldset.error {
+    border: 1px solid #d6dcde;
+    border-radius: 3px; }
+  fieldset legend, fieldset .legend {
     padding: 1.25rem 1.875rem;
     position: relative;
-    left: 230px;
+    left: 180px;
     color: #8e8e8e; }
 
 .form-element {
@@ -323,7 +337,7 @@ fieldset {
   .form-element.submit {
     margin-bottom: 0; }
   .form-element label {
-    width: 200px;
+    width: 150px;
     float: left;
     text-align: right;
     padding: 0.625rem 1.875rem; }
@@ -349,7 +363,7 @@ fieldset {
     clear: both;
     width: 500px;
     position: relative;
-    left: 260px;
+    left: 210px;
     padding: 0.625rem 0; }
   .form-element div.hint {
     font-size: 14;
@@ -481,12 +495,6 @@ input[type="checkbox"]:disabled:checked + label:after {
       background-repeat: no-repeat; } }
 input[type="checkbox"]:focus + label:before {
   border-color: #24b58e; }
-
-form {
-  background: #e5e5e5;
-  font-family: 'Roboto', sans-serif;
-  color: #262626;
-  line-height: 1.4em; }
 
 .hidden {
   display: none !important;

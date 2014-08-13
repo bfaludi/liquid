@@ -174,7 +174,7 @@ class FieldSetValidator( Validator ):
     """
 
     # void
-    def __init__( self, position, field_names = None, msg = None ):
+    def __init__( self, position = None, field_names = None, msg = None ):
 
         """
         Base class for FieldSet validation.
@@ -228,8 +228,12 @@ class FieldSetValidator( Validator ):
         """
 
         if not self.isValid( element ):
-            element.getField( self.position ).getState().setError( self.getMessage( element ) )
-            raise ValidationError( element.getField( self.position ).getState().getError() )
+            flashed_element = element \
+                if self.position is None \
+                else element.getField( self.position )
+
+            flashed_element.getState().setError( self.getMessage( element ) )
+            raise ValidationError( flashed_element.getState().getError() )
 
         self.reformat( element )
 
@@ -270,6 +274,9 @@ class Or( Validator ):
         for validator in self.validators:
             try:
                 validator.validate( element )
+                if last_msg:
+                    element.getState().setError(None)
+
                 return True
 
             except ValidationError, e:

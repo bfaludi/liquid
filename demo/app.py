@@ -34,6 +34,7 @@ class demo( object ):
             return render_template(
                 'form.jinja2',
                 header = outer.header,
+                valid = f.valid,
                 renderer = f.render,
                 results = {} if not request.form.get('submit') else f.value,
                 current_function = func,
@@ -659,6 +660,51 @@ def less_validator():
             label = 'Salary starts', placeholder = 'Required minimum' )
         salary_to = fields.Number( 
             label = 'Salary ends', placeholder = 'Expected maximum' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/contact_information', methods = ['GET','POST'] )
+@demo('Contact Information')
+def contact_information():
+
+    class AddressFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = validators.Or(
+            fieldsets.validators.NoneOf(),
+            fieldsets.validators.AllOf()
+        )
+
+        country_code = fields.Select( 
+            label = 'Country Code',
+            options = [ fields.options.Empty() ] + fields.options.generate( ( c.alpha2, c.name ) \
+                for c in pycountry.countries ) 
+        )
+        street = fields.Text( 
+            label = 'Street',
+            validators = fields.validators.Length( max_length = 255 ) 
+        )
+        city = fields.Text( 
+            label = 'City',
+            validators = fields.validators.Length( max_length = 32 ) 
+        )
+        postal_code = fields.Number( label = 'Postal Code' )
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        delivery_address = AddressFieldSet( legend = 'Delivery Address')
+        invoice_address = AddressFieldSet( legend = 'Invoice Address' )
+
 
     f = form.Form( 
         SchemaFieldSet(), 

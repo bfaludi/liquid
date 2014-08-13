@@ -98,6 +98,7 @@ class Form( object ):
         # Define other variables
         self._widget = widgets.Form()
         self._cls = cls
+        self.valid = None
 
     # elements.Element
     def __getattr__( self, attr ):
@@ -181,6 +182,7 @@ class Form( object ):
             return self.getElement().isValid()
 
         valid, _ = self.getElement().isValid()
+        self.valid = valid
         return valid
 
     # unicode

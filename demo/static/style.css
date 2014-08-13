@@ -65,16 +65,6 @@ section {
     width: 920px;
 }
 
-form.liquid {
-    border: 1px solid #d6dcde;
-    background: #fafafa;
-    margin: 0;
-}
-
-form.liquid label {
-    width: 150px;
-}
-
 div.submitted {
     border: 1px solid #d6dcde;
     background: #fff;
@@ -86,11 +76,6 @@ div.submitted pre {
     padding: 0;
     background: none;
     word-wrap: break-word; 
-}
-
-form.liquid .form-element div.hint, 
-form.liquid .form-element div.error.inline {
-    left: 210px;
 }
 
 pre {

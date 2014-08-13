@@ -74,7 +74,8 @@ def login_with_button():
 
         username = fields.Text( 
             label = 'Username', 
-            required = True
+            required = True,
+            focus = True
         )
 
         password = fields.Password( 
@@ -156,7 +157,7 @@ def registration():
         )
 
         accept_tc = fields.SwitchCheckbox(
-            option = options.Option( True, 'I Agree To The Terms & Conditions'),
+            option = fields.options.Option( True, 'I Agree To The Terms & Conditions'),
             validators = fields.validators.Equal( 
                 True,
                 msg = 'You have to accept the Terms & Conditions.' 
@@ -278,7 +279,7 @@ def input_fields():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        user_id = fields.Hidden( type = types.Integer() )
+        user_id = fields.Hidden( type = fields.types.Integer() )
         full_name = fields.Text( label = 'Full name', 
             placeholder = 'John Doe' )
         password = fields.Password( label = 'Password' )
@@ -310,10 +311,10 @@ def select_fields():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        # list<options.Option>
+        # list<fields.options.Option>
         def getMusicGenres():
 
-            return options.generate([
+            return fields.options.generate([
                 ( 1, 'Avant-Garde' ),
                 ( 2, 'Blues' ),
                 ( 3, 'Children\'s' ),
@@ -339,9 +340,9 @@ def select_fields():
 
         active = fields.Select(
             label = 'Active',
-            type = types.Boolean(),
+            type = fields.types.Boolean(),
             # Hint: convert tuple/list items into list of Option
-            options = options.generate([
+            options = fields.options.generate([
                 ( True, 'Yes' ),
                 ( False, 'No' )
             ])
@@ -351,15 +352,15 @@ def select_fields():
             label = 'Gender',
             options = [
                 # Hint: empty element is acceptable
-                options.Empty(),
-                options.Option( 'M', 'Male' ),
-                options.Option( 'F', 'Female' )
+                fields.options.Empty(),
+                fields.options.Option( 'M', 'Male' ),
+                fields.options.Option( 'F', 'Female' )
             ]
         )
 
         favourite_genre_ids = fields.Select(
             label = 'Favourite Genres',
-            type = types.Integer(),
+            type = fields.types.Integer(),
             # Hint: If you want to allow multiple selection
             multiple = True,
             # Hint: define just the function name and it will be evaluated when
@@ -386,11 +387,11 @@ def checkbox_fields():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        # list<options.Option>
+        # list<fields.options.Option>
         def getMusicGenres():
 
             # Hint: convert tuple/list items into list of Option
-            return options.generate([
+            return fields.options.generate([
                 ( 1, 'Avant-Garde' ),
                 ( 2, 'Blues' ),
                 ( 3, 'Children\'s' ),
@@ -416,7 +417,7 @@ def checkbox_fields():
 
         favourite_genre_ids = fields.Checkbox(
             label = 'Favourite Genres',
-            type = types.Integer(),
+            type = fields.types.Integer(),
             # Hint: define just the function name and it will be evaluated when
             # the form is created.
             options = getMusicGenres
@@ -427,7 +428,7 @@ def checkbox_fields():
             # can't be multiple or required field.
             label = 'Subscription',
             # Hint: Be aware, the paramter's name is 'option', not 'options'
-            option = options.Option( True, 'Subscribe to newsletter' )
+            option = fields.options.Option( True, 'Subscribe to newsletter' )
         )
 
     f = form.Form( 
@@ -451,7 +452,7 @@ def radio_field():
 
         gender = fields.Radio(
             label = 'Gender',
-            options = options.generate( [ ('M','Male'), ('F','Female') ] )
+            options = fields.options.generate( [ ('M','Male'), ('F','Female') ] )
         )
 
     f = form.Form( 
@@ -473,11 +474,11 @@ def selected_validator():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        # list<options.Option>
+        # list<fields.options.Option>
         def getMusicGenres():
 
             # Hint: convert tuple/list items into list of Option
-            return options.generate([
+            return fields.options.generate([
                 ( 1, 'Avant-Garde' ),
                 ( 2, 'Blues' ),
                 ( 3, 'Children\'s' ),
@@ -503,7 +504,7 @@ def selected_validator():
 
         selected_genre_ids = fields.Select(
             label = 'Selected Genres',
-            type = types.Integer(),
+            type = fields.types.Integer(),
             multiple = True,
             options = getMusicGenres,
             validators = fields.validators.Selected( max_selected = 3 )
@@ -511,7 +512,7 @@ def selected_validator():
 
         checked_genre_ids = fields.Checkbox(
             label = 'Checked Genres',
-            type = types.Integer(),
+            type = fields.types.Integer(),
             options = getMusicGenres,
             # Hint: You have to define required if you dont want to 
             # accept empty value.

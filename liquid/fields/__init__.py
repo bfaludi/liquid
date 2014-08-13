@@ -20,8 +20,8 @@ along with this program. If not, <see http://www.gnu.org/licenses/>.
 """
 
 import types as t, inspect
-from .. import types, widgets, form, exceptions, elements
-from . import validators
+from .. import widgets, form, exceptions, elements
+from . import validators, types, options
 
 class Field( elements.Element ):
 

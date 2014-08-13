@@ -26,9 +26,7 @@ from . import (
     fields, 
     fieldsets, 
     form, 
-    options,
     state, 
-    types, 
     validators, 
     widgets
 )

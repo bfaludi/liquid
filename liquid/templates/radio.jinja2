@@ -9,6 +9,7 @@
         value="{% if option.getValue( e ) is not none %}{{ option.getValue( e )|escape }}{% endif %}" 
         {% if e.getState().isReadonly() %}readonly{% endif %}
         {% if e.getState().isDisabled() %}disabled{% endif %}
+        {% if e.getState().isFocus() %}autofocus{% endif %}
         {% if option.getValue( e ) == e.getValue() %}checked{% endif %}
         autocomplete="off"
     >

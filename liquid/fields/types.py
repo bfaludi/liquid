@@ -21,7 +21,7 @@ along with this program. If not, <see http://www.gnu.org/licenses/>.
 
 import datetime, re
 from dateutil import parser
-from .exceptions import TypeConversionError
+from ..exceptions import TypeConversionError
 
 class Type( object ):
 

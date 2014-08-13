@@ -8,6 +8,7 @@
     {% if e.isMultiple() %}multiple{% endif %}
     {% if e.getState().isReadonly() %}readonly{% endif %}
     {% if e.getState().isDisabled() %}disabled{% endif %}
+    {% if e.getState().isFocus() %}autofocus{% endif %}
     autocomplete="off"
 >
     {% for option in e.getOptions() %}

@@ -23,16 +23,24 @@ from jinja2 import Environment, PackageLoader
 
 class Widget( object ):
 
+    """
+    Base Widget class for interface rendering purposes.
+    """
+
+    # Default template path
     default_template = None
+
+    # Default error widget for error message rendering
     default_error_widget = None
 
     # void
-    def __init__( self ):
+    def __init__( self, environment = None, template = None ):
         
-        self.environment = Environment(
+        self._environment = environment or Environment(
             loader = PackageLoader('liquid')
         )
-        self.error_widget = self.default_error_widget() \
+        self._template = template or self.default_template
+        self._error_widget = self.default_error_widget() \
             if self.default_error_widget is not None \
             else None
 
@@ -44,22 +52,22 @@ class Widget( object ):
     # unicode
     def getTemplate( self, element ):
 
-        return self.default_template
+        return self._template
     
     # void
     def setErrorWidget( self, error_widget ):
 
-        self.error_widget = error_widget
+        self._error_widget = error_widget
 
     # Widget
     def getErrorWidget( self ):
 
-        return self.error_widget  
+        return self._error_widget  
 
     # unicode
     def render( self, element ):
 
-        t = self.environment.get_template( self.getTemplate( element ) )
+        t = self._environment.get_template( self.getTemplate( element ) )
         data = { 'e': element, 'error_widget': self.getErrorWidget() }
         data.update( self.getData() )
         return t.render( data )

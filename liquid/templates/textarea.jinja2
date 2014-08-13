@@ -8,6 +8,7 @@
     class="{% if e.getState().isError() %}error{% endif %}"
     {% if e.getState().isReadonly() %}readonly{% endif %}
     {% if e.getState().isDisabled() %}disabled{% endif %}
+    {% if e.getState().isFocus() %}autofocus{% endif %}
     autocomplete="off"
 >{{ e.getValue()|default('',True)|escape }}</textarea>
 {% endblock %}

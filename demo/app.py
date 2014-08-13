@@ -103,7 +103,7 @@ def login_with_button():
 @demo('Registration')
 def registration():
 
-    class UserNotExists( validators.Validator ):
+    class UserNotExists( fields.validators.Validator ):
 
         msg = 'Please choose a different username.'
 
@@ -118,7 +118,7 @@ def registration():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        _default_validators = validators.Same(
+        _default_validators = fieldsets.validators.Same(
             position = 'password_again',
             field_names = [ 'password', 'password_again' ]
         )
@@ -127,8 +127,8 @@ def registration():
             label = 'Username', 
             required = True,
             validators = validators.And(
-                validators.Length( 5, 18 ),
-                validators.Pattern( '^[a-z0-9]+$' ),
+                fields.validators.Length( 5, 18 ),
+                fields.validators.Pattern( '^[a-z0-9]+$' ),
                 UserNotExists()
             )
         )
@@ -137,10 +137,10 @@ def registration():
             label = 'Password', 
             required = True,
             validators = validators.And(
-                validators.Length( 6, 32 ),
-                validators.Pattern( '.*[a-z].*', ignorecase = False ),
-                validators.Pattern( '.*[A-Z].*', ignorecase = False ),
-                validators.Pattern( '.*[0-9].*' )
+                fields.validators.Length( 6, 32 ),
+                fields.validators.Pattern( '.*[a-z].*', ignorecase = False ),
+                fields.validators.Pattern( '.*[A-Z].*', ignorecase = False ),
+                fields.validators.Pattern( '.*[0-9].*' )
             ) 
         )
 
@@ -148,16 +148,16 @@ def registration():
             label = 'Password again', 
             required = True,
             validators = validators.And(
-                validators.Length( 6, 32 ),
-                validators.Pattern( '.*[a-z].*', ignorecase = False ),
-                validators.Pattern( '.*[A-Z].*', ignorecase = False ),
-                validators.Pattern( '.*[0-9].*' )
+                fields.validators.Length( 6, 32 ),
+                fields.validators.Pattern( '.*[a-z].*', ignorecase = False ),
+                fields.validators.Pattern( '.*[A-Z].*', ignorecase = False ),
+                fields.validators.Pattern( '.*[0-9].*' )
             ) 
         )
 
         accept_tc = fields.SwitchCheckbox(
             option = options.Option( True, 'I Agree To The Terms & Conditions'),
-            validators = validators.Equal( 
+            validators = fields.validators.Equal( 
                 True,
                 msg = 'You have to accept the Terms & Conditions.' 
             )
@@ -185,7 +185,7 @@ def match_validator_with_hint():
         country_code = fields.Text(
             label = 'Country Code',
             required = True,
-            validators = validators.Pattern( ur'^[A-Z]{2}$', ignorecase = False ),
+            validators = fields.validators.Pattern( ur'^[A-Z]{2}$', ignorecase = False ),
             hint = 'Two letter long ISO format is expected (e.g.: HU, UK)'
         )
 
@@ -211,17 +211,17 @@ def length_validator():
 
         short_text = fields.Text(
             label = 'Short text',
-            validators = validators.Length( max_length = 5 )
+            validators = fields.validators.Length( max_length = 5 )
         )
 
         long_text = fields.Text(
             label = 'Long text',
-            validators = validators.Length( min_length = 10 )
+            validators = fields.validators.Length( min_length = 10 )
         )
 
         ranged_text = fields.Text(
             label = 'Ranged text',
-            validators = validators.Length( 5, 10 )
+            validators = fields.validators.Length( 5, 10 )
         )
 
     f = form.Form( 
@@ -245,17 +245,17 @@ def range_validator():
 
         age = fields.Number(
             label = 'Age',
-            validators = validators.Range( 18, 100 )
+            validators = fields.validators.Range( 18, 100 )
         )
 
         date_of_graduation = fields.Date(
             label = 'Date of graduation',
-            validators = validators.Range( min_value = '2000/01/01' )
+            validators = fields.validators.Range( min_value = '2000/01/01' )
         )
 
         birth_date = fields.Date(
             label = 'Birth date',
-            validators = validators.Range( max_value = datetime.date.today() )
+            validators = fields.validators.Range( max_value = datetime.date.today() )
         )
 
 
@@ -279,11 +279,14 @@ def input_fields():
     class SchemaFieldSet( fieldsets.FieldSet ):
 
         user_id = fields.Hidden( type = types.Integer() )
-        full_name = fields.Text( label = 'Full name' )
+        full_name = fields.Text( label = 'Full name', 
+            placeholder = 'John Doe' )
         password = fields.Password( label = 'Password' )
         number_of_children = fields.Number( label = 'Number of children' )
         birth_date = fields.Date( label = 'Birth date' )
-        email = fields.Email( label = 'Email address' )
+        email = fields.Email( label = 'Email address', 
+            hint = """Please do not use your work email address. Your boss 
+            wont be happy.""" )
         telephone = fields.Telephone( label = 'Telephone number' )
         website = fields.URL( label = 'Website' )
         search = fields.Search( label = 'Search terms' )
@@ -503,7 +506,7 @@ def selected_validator():
             type = types.Integer(),
             multiple = True,
             options = getMusicGenres,
-            validators = validators.Selected( max_selected = 3 )
+            validators = fields.validators.Selected( max_selected = 3 )
         )
 
         checked_genre_ids = fields.Checkbox(
@@ -513,7 +516,7 @@ def selected_validator():
             # Hint: You have to define required if you dont want to 
             # accept empty value.
             required = True,
-            validators = validators.Selected( 3, 6 )
+            validators = fields.validators.Selected( 3, 6 )
         )
 
     f = form.Form( 
@@ -529,6 +532,145 @@ def selected_validator():
     # Use f.render to return the renderer function
     return f
 
+@app.route( '/same_validator', methods = ['GET','POST'] )
+@demo('Same Validator')
+def same_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.Same(
+            position = 'number',
+            field_names = ['number','number_again']
+        )
+
+        number = fields.Number( label = 'Number' )
+        number_again = fields.Number( label = 'Number again' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/different_validator', methods = ['GET','POST'] )
+@demo('Different Validator')
+def different_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.Different(
+            position = 'number',
+            field_names = ['number','number_again']
+        )
+
+        number = fields.Number( label = 'Number' )
+        number_again = fields.Number( label = 'Other number' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/greater_validator', methods = ['GET','POST'] )
+@demo('Greater Validator')
+def greater_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        # Hint: Use list instead of validators.And, if you want to
+        # evaluate in one time. It will generate two error message instad of
+        # one. And will stop when the first validation fails.
+        _default_validators = [
+            fieldsets.validators.Greater(
+                position = 'date_of_end',
+                field_name = 'date_of_end',
+                other_field_name = 'date_of_start'
+            ),
+            fieldsets.validators.GreaterAndEqual(
+                position = 'salary_to',
+                field_name = 'salary_to',
+                other_field_name = 'salary_from'
+            )
+        ]
+
+        date_of_start = fields.Date( label = 'Start work' )
+        date_of_end = fields.Date( label = 'End work' )
+
+        salary_from = fields.Number( 
+            label = 'Salary starts', placeholder = 'Required minimum' )
+        salary_to = fields.Number( 
+            label = 'Salary ends', placeholder = 'Expected maximum' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/less_validator', methods = ['GET','POST'] )
+@demo('Less Validator')
+def less_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        # Hint: Use list instead of validators.And, if you want to
+        # evaluate in one time. It will generate two error message instad of
+        # one. And will stop when the first validation fails.
+        _default_validators = [
+            fieldsets.validators.Less(
+                position = 'date_of_start',
+                field_name = 'date_of_start',
+                other_field_name = 'date_of_end'
+            ),
+            fieldsets.validators.LessAndEqual(
+                position = 'salary_from',
+                field_name = 'salary_from',
+                other_field_name = 'salary_to'
+            )
+        ]
+
+        date_of_start = fields.Date( label = 'Start work' )
+        date_of_end = fields.Date( label = 'End work' )
+
+        salary_from = fields.Number( 
+            label = 'Salary starts', placeholder = 'Required minimum' )
+        salary_to = fields.Number( 
+            label = 'Salary ends', placeholder = 'Expected maximum' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
 
 if __name__ == '__main__':
     app.run(

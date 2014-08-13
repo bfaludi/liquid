@@ -12,16 +12,35 @@
     <nav>
         <div class="logo">Liquid</div>
         <ul>
-            <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox Fields</a></li>
-            <li><a href="{{ url_for('.input_fields') }}">Input Fields</a></li>
-            <li><a href="{{ url_for('.length_validator') }}">Length Validator</a></li>
-            <li><a href="{{ url_for('.login_with_button') }}">Login with Button</a></li>
-            <li><a href="{{ url_for('.match_validator_with_hint') }}">Match Validator with Hint</a></li>
-            <li><a href="{{ url_for('.radio_field') }}">Radio Field</a></li>
-            <li><a href="{{ url_for('.range_validator') }}">Range Validator</a></li>
-            <li><a href="{{ url_for('.registration') }}">Registration</a></li>
-            <li><a href="{{ url_for('.select_fields') }}">Select and Multiple Select Fields</a></li>
-            <li><a href="{{ url_for('.selected_validator') }}">Selected Validator</a></li>
+            <li>
+                Fields
+                <ol>
+                    <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox</a></li>
+                    <li><a href="{{ url_for('.input_fields') }}">Input</a></li>
+                    <li><a href="{{ url_for('.radio_field') }}">Radio</a></li>
+                    <li><a href="{{ url_for('.select_fields') }}">Select and Multiple</a></li>
+                </ol>
+            </li>
+            <li>
+                Validators
+                <ol>
+                    <li><a href="{{ url_for('.different_validator') }}">Different</a></li>
+                    <li><a href="{{ url_for('.greater_validator') }}">Greater</a></li>
+                    <li><a href="{{ url_for('.length_validator') }}">Length</a></li>
+                    <li><a href="{{ url_for('.less_validator') }}">Less</a></li>
+                    <li><a href="{{ url_for('.match_validator_with_hint') }}">Match with Hint</a></li>
+                    <li><a href="{{ url_for('.range_validator') }}">Range</a></li>
+                    <li><a href="{{ url_for('.same_validator') }}">Same</a></li>
+                    <li><a href="{{ url_for('.selected_validator') }}">Selected</a></li>
+                </ol>
+            </li>
+            <li>
+                Examples
+                <ol>
+                    <li><a href="{{ url_for('.login_with_button') }}">Login with Button</a></li>
+                    <li><a href="{{ url_for('.registration') }}">Registration</a></li>
+                </ol>  
+            </li>
         </ul>
     </nav>
     <section>

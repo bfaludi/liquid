@@ -19,7 +19,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, <see http://www.gnu.org/licenses/>.
 """
 
-from . import widgets, form, exceptions, elements
+import inspect
+from .. import widgets, form, exceptions, elements
+from . import validators
 
 class FieldSet( elements.Element, elements.ElementCollector ):
 
@@ -28,15 +30,14 @@ class FieldSet( elements.Element, elements.ElementCollector ):
     # void
     def __init__( self, name = None, label = None, legend = None, cls = None, \
                   hidden = False, readonly = False, disabled = False, focus = False, \
-                  required = False, error = None, type = None, widget = None, \
-                  validators = None ):
+                  error = None, type = None, widget = None, validators = None ):
 
         self._legend = legend
         super( FieldSet, self ).__init__( 
             name = name, 
             label = label,
             hidden = hidden, 
-            required = required,
+            required = False,
             readonly = readonly, 
             disabled = disabled, 
             focus = focus,
@@ -56,8 +57,13 @@ class FieldSet( elements.Element, elements.ElementCollector ):
         clone_dict.update( self.getState().getState() )
         clone_dict['name'] = self.getName()
 
+        init_args = set( list( 
+            inspect.getargspec( self.__class__.__init__ ).args 
+        ) )
+        init_args.remove('self')
+
         fs = self.__class__(
-            **clone_dict
+            **{ k:v for k,v in clone_dict.items() if k in init_args }
         )
 
         fs._elements = []
@@ -118,21 +124,26 @@ class FieldSet( elements.Element, elements.ElementCollector ):
 
         return self._legend
 
+    # void
     def validate( self ):
 
         if not self.getState().isActive():
             return
 
-        child_errors = []
+        errors = []
         for element in self.getElements():
             success, error = element.isValid()
-            child_errors += error
-
-        if len( child_errors ) != 0:
-            raise exceptions.ValidationCollectionError( child_errors )
+            errors += error
 
         for validator in self.getValidators():
-            validator.validate( self )
+            try:
+                validator.validate( self )
+            
+            except exceptions.ValidationError, e:
+                errors += [( self.getName(), e.msg )] 
+
+        if len( errors ) != 0:
+            raise exceptions.ValidationCollectionError( errors )
 
     # tuple<bool,list>
     def isValid( self ):

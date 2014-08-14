@@ -1,7 +1,7 @@
 
 import pycountry, inspect, os, datetime
 from flask import *
-from liquid import *
+from liquid4m import *
 from functools import wraps
 from pygments import highlight
 from pygments.lexers import PythonLexer

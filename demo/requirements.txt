@@ -1,4 +1,4 @@
 pycountry
 flask
-python-liquid
+liquid4m
 pygments

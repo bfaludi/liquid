@@ -12,7 +12,7 @@ requirements = [
 ]
 
 setup(
-    name = 'python-liquid',
+    name = 'liquid4m',
     version = version,
     description = "Liquid form management for dummies",
     packages = find_packages( exclude = [ 'ez_setup'] ),
@@ -23,5 +23,5 @@ setup(
     license = 'GPL',
     dependency_links = [],
     install_requires = requirements,
-    test_suite = "liquid.tests"
+    test_suite = "liquid4m.tests"
 )

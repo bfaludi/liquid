@@ -4,17 +4,17 @@ from flask import *
 from liquid4m import *
 from functools import wraps
 from pygments import highlight
-from pygments.lexers import PythonLexer
+from pygments.lexers import PythonLexer, HtmlLexer
 from pygments.formatters import HtmlFormatter
 app = Flask( __name__ )
 
-def printSourceCode( fn = None, code = None ):
+def printSourceCode( fn = None, code = None, lexer = PythonLexer ):
 
     source_code = unicode( code ) \
         if code is not None \
         else inspect.getsource( fn )
 
-    return highlight( source_code, PythonLexer(), HtmlFormatter() )
+    return highlight( source_code, lexer(), HtmlFormatter() )
 
 class demo( object ):
     
@@ -47,7 +47,19 @@ class demo( object ):
 def index():
 
     return render_template(
-        'base.html'
+        'index.html',
+        scripts = printSourceCode( code = """<link href='http://fonts.googleapis.com/css?family=Roboto:700,300,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="static/liquid4m/bower_components/normalize.css/normalize.css">
+<link rel="stylesheet" href="static/liquid4m/css/style.css>
+<script src="static/liquid4m/bower_components/modernizr/modernizr.js></script>
+<script src="static/liquid4m/bower_components/jquery/dist/jquery.js"></script>
+<script src="static/liquid4m/bower_components/jquery-ui/ui/core.js"></script>
+<script src="static/liquid4m/bower_components/jquery-ui/ui/widget.js"></script>
+<script src="static/liquid4m/bower_components/jquery-ui/ui/mouse.js"></script>
+<script src="static/liquid4m/bower_components/jquery-ui/ui/draggable.js"></script>
+<script src="static/liquid4m/js/vendor/dropkick.js"></script>
+<script src="static/liquid4m/js/vendor/dropkick.jquery.js"></script>
+<script src="static/liquid4m/js/liquid.js"></script>""", lexer = HtmlLexer )
     )
 
 @app.route( '/login_with_button', methods = ['GET','POST'] )

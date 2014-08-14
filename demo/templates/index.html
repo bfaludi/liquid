@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Overview</h1>
+<p>
+    It's a HTML form generation system with validation functions. Liquid4m is responsible for taking some user input, validating it, and turning it into Python objects.
+</p>
+
+<h2>Installation</h2>
+<p>
+    As a traditional Python package, installation can the most easily be carried out with the help of the following command in the liquid4m directory:
+</p>
+<pre>$ python setup.py install</pre>
+<p>
+    or
+</p>
+<pre>$ easy_install liquid4m</pre>
+
+<h2>Usage</h2>
+<p>
+    After that when you write your web application you need to copy the <b>demo/liquid4m</b> folder's content into your application's <b>static</b> folder. You need to execute the following command in that directory:
+</p>
+<pre>$ bower install</pre>
+<p>
+    You need to add the following lines into your base template.
+</p>
+{{ scripts|safe }}
+<p>
+    Don't forget to import liquid4m in your web application:
+</p>
+<pre>from liquid4m import *</pre>
+<p>
+    It's done. Have fun.
+</p>
+{% endblock %}

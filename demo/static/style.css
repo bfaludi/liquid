@@ -17,13 +17,6 @@ nav {
     padding: 20px;
 }
 
-nav div.logo {
-    font-size: 32px;
-    font-weight: 300;
-    color: #f8f8f8;
-    border-bottom: 2px solid #756ff4;
-}
-
 nav ul {
     padding-left: 0;
 }

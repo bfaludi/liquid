@@ -50,8 +50,8 @@ def index():
         'index.html',
         scripts = printSourceCode( code = """<link href='http://fonts.googleapis.com/css?family=Roboto:700,300,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="static/liquid4m/bower_components/normalize.css/normalize.css">
-<link rel="stylesheet" href="static/liquid4m/css/style.css>
-<script src="static/liquid4m/bower_components/modernizr/modernizr.js></script>
+<link rel="stylesheet" href="static/liquid4m/css/style.css">
+<script src="static/liquid4m/bower_components/modernizr/modernizr.js"></script>
 <script src="static/liquid4m/bower_components/jquery/dist/jquery.js"></script>
 <script src="static/liquid4m/bower_components/jquery-ui/ui/core.js"></script>
 <script src="static/liquid4m/bower_components/jquery-ui/ui/widget.js"></script>

@@ -242,7 +242,7 @@ class Option( object ):
         @rtype: unicode
         """
 
-        return u'&nbsp'*4*self.getLevel() + self._label \
+        return u'-'*5*self.getLevel() + u' ' + self._label \
             if levelled and hasattr( self, 'getLevel') \
             else self._label
 

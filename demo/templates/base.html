@@ -16,7 +16,8 @@
         </div>
         <ul>
             <li>
-                Fields
+                <label for='_fields'>Fields</label>
+                <input type='checkbox' name='_togglemenu' id='_fields' checked>
                 <ol>
                     <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox</a></li>
                     <li><a href="{{ url_for('.input_fields') }}">Input</a></li>
@@ -25,20 +26,31 @@
                 </ol>
             </li>
             <li>
-                Validators
+                <label for='_fieldvalidators'>Field Validators</label>
+                <input type='checkbox' name='_togglemenu' id='_fieldvalidators' checked>
                 <ol>
-                    <li><a href="{{ url_for('.different_validator') }}">Different</a></li>
-                    <li><a href="{{ url_for('.greater_validator') }}">Greater</a></li>
                     <li><a href="{{ url_for('.length_validator') }}">Length</a></li>
-                    <li><a href="{{ url_for('.less_validator') }}">Less</a></li>
-                    <li><a href="{{ url_for('.match_validator_with_hint') }}">Match with Hint</a></li>
+                    <li><a href="{{ url_for('.match_validator') }}">Match</a></li>
                     <li><a href="{{ url_for('.range_validator') }}">Range</a></li>
-                    <li><a href="{{ url_for('.same_validator') }}">Same</a></li>
                     <li><a href="{{ url_for('.selected_validator') }}">Selected</a></li>
                 </ol>
             </li>
             <li>
-                Examples
+                <label for='_fieldsetvalidators'>FieldSet Validators</label>
+                <input type='checkbox' name='_togglemenu' id='_fieldsetvalidators' checked>
+                <ol>
+                    <li><a href="{{ url_for('.allof_validator') }}">AllOf</a></li>
+                    <li><a href="{{ url_for('.anyof_validator') }}">AnyOf</a></li>
+                    <li><a href="{{ url_for('.different_validator') }}">Different</a></li>
+                    <li><a href="{{ url_for('.greater_validator') }}">Greater</a></li>
+                    <li><a href="{{ url_for('.less_validator') }}">Less</a></li>
+                    <li><a href="{{ url_for('.noneof_validator') }}">NoneOf</a></li>
+                    <li><a href="{{ url_for('.same_validator') }}">Same</a></li>
+                </ol>
+            </li>
+            <li>
+                <label for='_examples'>Examples</label>
+                <input type='checkbox' name='_togglemenu' id='_examples' checked>
                 <ol>
                     <li><a href="{{ url_for('.contact_information') }}">Contact Information</a></li>
                     <li><a href="{{ url_for('.login_with_button') }}">Login with Button</a></li>

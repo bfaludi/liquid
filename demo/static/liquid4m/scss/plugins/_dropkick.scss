@@ -150,9 +150,6 @@ $dk-disabled-color: #BBBBBB !default;
 }
 
 .dk-optgroup {
-  border: solid $dk-border-color;
-  border-width: 1px 0;
-  padding: 0.25em 0;
   margin-top: 0.25em;
   + .dk-option {
     margin-top: 0.25em;
@@ -174,7 +171,8 @@ $dk-disabled-color: #BBBBBB !default;
 }
 
 .dk-optgroup-label {
-  padding: 0 0.5em 0.25em;
+  /* padding: 0 0.5em 0.25em; */
+  padding: rem-calc(6) rem-calc(15) rem-calc(7);
   font-weight: bold;
   width: 100%;
 }
@@ -183,7 +181,7 @@ $dk-disabled-color: #BBBBBB !default;
   list-style: none;
   padding-left: 0;
   li{
-    padding-left: 1.2em;
+    padding-left: 2.2em;
   }
 }
 

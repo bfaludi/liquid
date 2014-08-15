@@ -1,37 +1,4 @@
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea {
-	padding: rem-calc(8) rem-calc(15) rem-calc(9);
-	border: 1px solid $input-border-color;
-	border-radius: $global-radius;
-
-	&:not([disabled]):focus, &:not([disabled]):active {
-		border-color: $primary-color;
-		outline: none;
-	}
-
-	&:disabled {
-		opacity: 0.6;
-		color: $dk-disabled-color;
-	}
-
-	&.error {
-		border-color: $error-color;
-	}
-}
-
-form {
+form.liquid {
 	padding: rem-calc(25);
 	border: 1px solid #d6dcde;
     margin: 0;
@@ -39,192 +6,218 @@ form {
 	font-family: 'Roboto', sans-serif;
 	color: $default-text-color;
 	line-height: 1.4em;
-}
 
-fieldset {
-	border: none;
-	padding: 0;
-	margin: 0;
-
-	& > div.error {
-		color: $disabled-bg-color;
-		background: $error-color;
-		padding: 20px;
-		border-radius: 3px;
-	}
-
-	&.error {
+	input[type="text"],
+	input[type="password"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="month"],
+	input[type="week"],
+	input[type="email"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="time"],
+	input[type="url"],
+	select,
+	textarea {
+		padding: rem-calc(8) rem-calc(15) rem-calc(9);
 		border: 1px solid $input-border-color;
-		border-radius: 3px;
+		border-radius: $global-radius;
+
+		&:not([disabled]):focus, &:not([disabled]):active {
+			border-color: $primary-color;
+			outline: none;
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			color: $dk-disabled-color;
+		}
+
+		&.error {
+			border-color: $error-color;
+		}
 	}
 
-	legend,
-	.legend {
-		padding: rem-calc(20) rem-calc(30);
+	input[type="date"],
+	input[type="datetime"],
+	select {
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+
+	fieldset {
+		border: none;
+		padding: 0;
+		margin: 0;
+		margin-bottom: rem-calc(20);
+
+		& > div.error {
+			color: $disabled-bg-color;
+			background: $error-color;
+			padding: 20px;
+			border-radius: 3px;
+			margin-bottom: rem-calc(20);
+		}
+
+		&.error {
+			border: 1px solid $input-border-color;
+			border-radius: 3px;
+		}
+
+		legend,
+		.legend {
+			padding: 0 rem-calc(30) rem-calc(20) rem-calc(30);
+			position: relative;
+			left: 180px;
+			color: $secondary-text-color;
+		}
+	}
+
+	.form-element {
+		width: 850px;
 		position: relative;
-		left: 180px;
-		color: $secondary-text-color;
-	}
-}
+		margin-bottom: rem-calc(20);
+		clear: both;
 
-.form-element {
-	width: 850px;
-	position: relative;
-	margin-bottom: rem-calc(20);
-	clear: both;
+		&.submit {
+			margin-bottom: 0;
+		}
 
-	&.submit {
-		margin-bottom: 0;
-	}
-
-	label {
-		width: 150px;
-		float: left;
-		text-align: right;
-		padding: rem-calc(10) rem-calc(30);
-	
-		span {
-			&.required {
-				color: $error-color;
+		label {
+			width: 150px;
+			float: left;
+			text-align: right;
+			padding: rem-calc(10) rem-calc(30);
+		
+			span {
+				&.required {
+					color: $error-color;
+				}
 			}
 		}
-	}
 
-	input,
-	textarea {
-		width: 500px;
-	}
-
-	input[type=search] {
-		width: 470px;
-	}
-
-	textarea {
-		height: 150px;
-	}
-
-	input[type=checkbox],
-	input[type=radio] {
-		width: auto;
-
-		&+label {
-			text-align: left;
-			width: auto;
-			line-height: 0.5;
-		}
-	}
-
-	div {
-		&.options {
-			float: left;
+		input,
+		select,
+		textarea {
 			width: 500px;
-			padding: rem-calc(7) 0;
 		}
 
-		&.hint,
-		&.error.inline {
-			clear: both;
-			width: 500px;
+		select[multiple] {
 			position: relative;
 			left: 210px;
-			padding: rem-calc(10) 0;
 		}
 
-		&.hint {
-			font-size: $rem-small;
-			color: $secondary-text-color;
-			padding: rem-calc(10) 0;
+		input[type=search] {
+			width: 470px;
 		}
 
-		&.error.inline {
-			color: $error-color;
-			font-size: $rem-base;
+		textarea {
+			height: 150px;
 		}
 
-		&.item:nth-of-type(1) {
-			left: 0px;
+		input[type=checkbox],
+		input[type=radio] {
+			width: auto;
+
+			&+label {
+				text-align: left;
+				width: auto;
+				line-height: 0.5;
+			}
 		}
-	}
-}
 
-input {
-	+ .error.tooltip {
-		display: none;
-		position: relative;
-		margin-left: rem-calc(10);
-		vertical-align: middle;
-		@include retina-sprite($error-icon,$error-icon-2x);
+		div {
+			&.options {
+				float: left;
+				width: 500px;
+				padding: rem-calc(7) 0;
+			}
 
-		&:hover {
-			&:before, &:after {
-				margin-right: rem-calc(-18);
+			&.hint,
+			&.error.inline {
+				clear: both;
+				width: 500px;
+				position: relative;
+				left: 210px;
+				padding: rem-calc(10) 0;
+			}
+
+			&.hint {
+				font-size: $rem-small;
+				color: $secondary-text-color;
+				padding: rem-calc(10) 0;
+			}
+
+			&.error.inline {
+				color: $error-color;
+				font-size: $rem-base;
+			}
+
+			&.item:nth-of-type(1) {
+				left: 0px;
 			}
 		}
 	}
 
-	&.error {
-		+ .error {
-			display: inline-block;
-		}
-	}
-}
-
-input[type="radio"] {
-	@extend .visuallyhidden;
-
-	+ label {
-		display: block;
-		position: relative;
-		padding-left: rem-calc(30);
-		cursor: pointer;
-
-		&:before {
-			content: "";
-			display: block;
-			position: absolute;
-			top: 1px;
-			left: 0;
-			width: rem-calc(20);
-			height: rem-calc(20);
-			border: 1px solid $input-border-color;
-			border-radius: 100%;
-			background: #fff;
-		}
-
-		&:after {
+	input {
+		+ .error.tooltip {
 			display: none;
-			content: "";
-			display: block;
-			position: absolute;
-			top: 7px;
-			left: 6px;
-			width: rem-calc(10);
-			height: rem-calc(10);
-			border-radius: 100%;
-			background: #fff;
+			position: relative;
+			margin-left: rem-calc(10);
+			vertical-align: middle;
+			@include retina-sprite($error-icon,$error-icon-2x);
+
+			&:hover {
+				&:before, &:after {
+					margin-right: rem-calc(-18);
+				}
+			}
+		}
+
+		&.error {
+			+ .error {
+				display: inline-block;
+			}
 		}
 	}
 
-	&:checked {
+	input[type="radio"] {
+		@extend .visuallyhidden;
+
 		+ label {
+			display: block;
+			position: relative;
+			padding-left: rem-calc(30);
+			cursor: pointer;
 
 			&:before {
-				background: $primary-color;
-				border-color: #24b58e;
+				content: "";
+				display: block;
+				position: absolute;
+				top: 1px;
+				left: 0;
+				width: rem-calc(20);
+				height: rem-calc(20);
+				border: 1px solid $input-border-color;
+				border-radius: 100%;
+				background: #fff;
 			}
 
 			&:after {
+				display: none;
+				content: "";
 				display: block;
-			}
-		}
-	}
-
-	&:disabled {
-		+ label {
-
-			&:before {
-				background: $disabled-bg-color;
-				border-color: $input-border-color;
+				position: absolute;
+				top: 7px;
+				left: 6px;
+				width: rem-calc(10);
+				height: rem-calc(10);
+				border-radius: 100%;
+				background: #fff;
 			}
 		}
 
@@ -232,97 +225,122 @@ input[type="radio"] {
 			+ label {
 
 				&:before {
-
+					background: $primary-color;
+					border-color: #24b58e;
 				}
 
 				&:after {
-					background: $input-border-color;
+					display: block;
+				}
+			}
+		}
+
+		&:disabled {
+			+ label {
+
+				&:before {
+					background: $disabled-bg-color;
+					border-color: $input-border-color;
+				}
+			}
+
+			&:checked {
+				+ label {
+
+					&:before {
+
+					}
+
+					&:after {
+						background: $input-border-color;
+					}
+				}
+			}
+		}
+
+		&:focus {
+			+ label {
+				&:before {
+					border-color: #24b58e;
 				}
 			}
 		}
 	}
 
-	&:focus {
+
+	input[type="checkbox"] {
+		@extend .visuallyhidden;
+
 		+ label {
-			&:before {
-				border-color: #24b58e;
-			}
-		}
-	}
-}
-
-
-input[type="checkbox"] {
-	@extend .visuallyhidden;
-
-	+ label {
-		display: block;
-		position: relative;
-		padding-left: rem-calc(30);
-		cursor: pointer;
-
-		&:before {
-			content: "";
 			display: block;
-			position: absolute;
-			top: 1px;
-			left: 0;
-			width: rem-calc(20);
-			height: rem-calc(20);
-			border: 1px solid $input-border-color;
-			border-radius: $global-radius;
-			background: #fff;
-		}
-
-		&:after {
-			display: none;
-			content: "";
-			display: block;
-			position: absolute;
-			top: 7px;
-			left: 4px;
-			@include retina-sprite($checkmark,$checkmark-2x);
-		}
-	}
-
-	&:checked {
-		+ label {
+			position: relative;
+			padding-left: rem-calc(30);
+			cursor: pointer;
 
 			&:before {
-				background: $primary-color;
-				border-color: #24b58e;
+				content: "";
+				display: block;
+				position: absolute;
+				top: 1px;
+				left: 0;
+				width: rem-calc(20);
+				height: rem-calc(20);
+				border: 1px solid $input-border-color;
+				border-radius: $global-radius;
+				background: #fff;
 			}
 
 			&:after {
+				display: none;
+				content: "";
 				display: block;
-			}
-		}
-	}
-
-	&:disabled {
-		+ label {
-
-			&:before {
-				background: $disabled-bg-color;
-				border-color: $input-border-color;
+				position: absolute;
+				top: 7px;
+				left: 4px;
+				@include retina-sprite($checkmark,$checkmark-2x);
 			}
 		}
 
 		&:checked {
 			+ label {
 
+				&:before {
+					background: $primary-color;
+					border-color: #24b58e;
+				}
+
 				&:after {
-					@include retina-sprite($checkmark-inactive,$checkmark-inactive-2x);
+					display: block;
+				}
+			}
+		}
+
+		&:disabled {
+			+ label {
+
+				&:before {
+					background: $disabled-bg-color;
+					border-color: $input-border-color;
+				}
+			}
+
+			&:checked {
+				+ label {
+
+					&:after {
+						@include retina-sprite($checkmark-inactive,$checkmark-inactive-2x);
+					}
+				}
+			}
+		}
+
+		&:focus {
+			+ label {
+				&:before {
+					border-color: #24b58e;
 				}
 			}
 		}
 	}
-
-	&:focus {
-		+ label {
-			&:before {
-				border-color: #24b58e;
-			}
-		}
-	}
 }
+

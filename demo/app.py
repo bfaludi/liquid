@@ -190,9 +190,9 @@ def registration():
     # Use f.render to return the renderer function
     return f
 
-@app.route( '/match_validator_with_hint', methods = ['GET','POST'] )
-@demo('Match Validator with Hint')
-def match_validator_with_hint():
+@app.route( '/match_validator', methods = ['GET','POST'] )
+@demo('Match Validator')
+def match_validator():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
@@ -772,6 +772,77 @@ def contact_information():
         delivery_address = AddressFieldSet( legend = 'Delivery Address')
         invoice_address = AddressFieldSet( legend = 'Invoice Address' )
 
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/anyof_validator', methods = ['GET','POST'] )
+@demo('AnyOf Validator')
+def anyof_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.AnyOf()
+
+        valid_from = fields.Date( label = 'Valid from' )
+        valid_to = fields.Date( label = 'Valid to' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/noneof_validator', methods = ['GET','POST'] )
+@demo('NoneOf Validator')
+def noneof_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.NoneOf()
+
+        valid_from = fields.Date( label = 'Valid from' )
+        valid_to = fields.Date( label = 'Valid to' )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
+@app.route( '/allof_validator', methods = ['GET','POST'] )
+@demo('AllOf Validator')
+def allof_validator():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.AllOf()
+
+        valid_from = fields.Date( label = 'Valid from' )
+        valid_to = fields.Date( label = 'Valid to' )
 
     f = form.Form( 
         SchemaFieldSet(), 
@@ -788,6 +859,8 @@ def contact_information():
 
 if __name__ == '__main__':
     app.run(
+        host = '0.0.0.0',
+        port = 5000,
         debug = True
     )
 

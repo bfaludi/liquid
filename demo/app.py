@@ -6,7 +6,11 @@ from functools import wraps
 from pygments import highlight
 from pygments.lexers import PythonLexer, HtmlLexer
 from pygments.formatters import HtmlFormatter
+
 app = Flask( __name__ )
+
+APP_ROOT = os.path.dirname( os.path.abspath( __file__) )
+APP_STATIC = os.path.join(APP_ROOT, 'static')
 
 def printSourceCode( fn = None, code = None, lexer = PythonLexer ):
 
@@ -365,8 +369,11 @@ def select_fields():
                         options = getCategory( category.get('categories', []) )
                     )
 
-            data = json.load( codecs.open('static/4sq.json','r','utf-8') )
-            return getCategory( data.get('response',{}).get('categories',[]) )
+            with codecs.open( os.path.join( APP_STATIC, '4sq.json'), 'r', 'utf-8' ) as f:
+                data = json.load( f )
+                return getCategory( data.get('response',{}).get('categories',[]) )
+
+            return []
 
         active = fields.Select(
             label = 'Active',

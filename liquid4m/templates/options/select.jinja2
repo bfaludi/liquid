@@ -1,0 +1,21 @@
+{% for o in e.getOptions() recursive %}
+{% if o.getName() in ( 'option', 'multidimensionaloption' ) %}
+<option
+    value="{% if o.getValue( e ) is not none %}{{ o.getValue( e )|escape }}{% endif %}" 
+    {% if ( not e.isMultiple() and o.getValue( e ) == e.getValue() ) or ( e.isMultiple() and o.getValue( e ) in e.getValue() ) %}selected{% endif %}
+    {% if o.isDisabled() %}disabled{% endif %}
+>
+    {{ o.getLabel( true )|escape }}
+</option>
+{% if o.getName() == 'multidimensionaloption' %}
+{{ loop( o.getOptions( o.getLevel() + 1 ) ) }}
+{% endif %}
+{% elif o.getName() == 'optiongroup' %}
+<optgroup
+    label="{{ o.getLabel()|escape }}"
+    {% if o.isDisabled() %}disabled{% endif %}
+>
+    {{ loop( o.getOptions() ) }}
+</optgroup>
+{% endif %}
+{% endfor %}

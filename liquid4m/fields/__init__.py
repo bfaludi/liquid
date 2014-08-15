@@ -21,7 +21,8 @@ along with this program. If not, <see http://www.gnu.org/licenses/>.
 
 import types as t, inspect
 from .. import widgets, form, exceptions, elements
-from . import validators, types, options
+from . import validators, types
+from .options import OptionsInterface, Options
 
 class Field( elements.Element ):
 
@@ -241,7 +242,7 @@ class DateTime( Field ):
     _default_widget = widgets.Input, 'datetime'
     _default_type = types.DateTime
 
-class Select( Field ):
+class Select( Field, OptionsInterface ):
 
     _default_widget = widgets.Select, 
     _default_type = types.String
@@ -252,8 +253,8 @@ class Select( Field ):
                   readonly = False, disabled = False, focus = False, required = False, \
                   error = None, widget = None, validators = None, cls = None ):
 
-        self.setOptions( options )
         self._multiple = multiple
+        self._options = Options( options )
 
         super( Select, self ).__init__( 
             name = name, 
@@ -286,18 +287,10 @@ class Select( Field ):
 
         return self._multiple
 
-    # void
-    def setOptions( self, options ):
+    # unicode
+    def renderOptions( self, *args ):
 
-        self._options = options
-
-    # list<Option>
-    def getOptions( self, *args ):
-
-        if isinstance( self._options, list ) or type( self._options ).__name__ == 'generator':
-            return self._options
-
-        return self._options( *args )
+        return widgets.Options( self ).render( self.getOptions() )
 
     # void
     def _setValue( self, value ):

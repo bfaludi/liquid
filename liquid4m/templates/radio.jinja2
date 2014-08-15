@@ -1,21 +1,6 @@
 {% extends '_field.jinja2' %}
 {% block element %}
 <div class="options">
-    {% for option in e.getOptions() %}
-    <input 
-        id="{{ e.getID() + '__' + option.getValue( e )|escape }}"
-        name="{{ e.getAbsName()|escape }}"
-        type="radio" 
-        value="{% if option.getValue( e ) is not none %}{{ option.getValue( e )|escape }}{% endif %}" 
-        {% if e.getState().isReadonly() %}readonly{% endif %}
-        {% if e.getState().isDisabled() %}disabled{% endif %}
-        {% if e.getState().isFocus() %}autofocus{% endif %}
-        {% if option.getValue( e ) == e.getValue() %}checked{% endif %}
-        autocomplete="off"
-    >
-    <label for="{{ e.getID() + '__' + option.getValue( e )|escape }}">
-        {{ option.getLabel()|default('',True)|escape }}
-    </label>
-    {% endfor %}
+    {{ e.renderOptions() }}
 </div>
 {% endblock %}

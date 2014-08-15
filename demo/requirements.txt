@@ -2,3 +2,4 @@ pycountry
 flask
 liquid4m
 pygments
+requests

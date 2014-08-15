@@ -46,7 +46,7 @@ class Widget( object ):
             else None
 
     # dict
-    def getData( self ):
+    def getData( self, element ):
 
         return {}
 
@@ -73,12 +73,39 @@ class Widget( object ):
             else self._environment.from_string( self._html )
 
         data = { 'e': element, 'error_widget': self.getErrorWidget() }
-        data.update( self.getData() )
+        data.update( self.getData( element ) )
+
         return t.render( data )
 
 class HTML( Widget ):
 
     pass
+
+class Options( Widget ):
+
+    default_template = 'options/%(field_type)s.jinja2'
+
+    # void
+    def __init__( self, element, environment = None, template = None, \
+                  html = None ):
+        
+        super( Options, self ).__init__( environment, template, html )
+        self._element = element
+
+    # unicode
+    def getTemplate( self, element ):
+
+        return self._template % {
+            'field_type': self._element.__class__.__name__.lower()
+        }
+
+    # dict
+    def getData( self, element ):
+
+        return {
+            'e': self._element,
+            'options': element
+        }
 
 class FieldSet( Widget ):
 
@@ -93,11 +120,11 @@ class FieldSet( Widget ):
 
 class TooltipError( Widget ):
 
-    default_template = 'error/tooltip.jinja2'
+    default_template = 'errors/tooltip.jinja2'
 
 class InlineError( Widget ):
 
-    default_template = 'error/inline.jinja2'
+    default_template = 'errors/inline.jinja2'
 
 class Form( Widget ):
 
@@ -119,7 +146,7 @@ class Button( Widget ):
         super( Button, self ).__init__( environment, template )
 
     # dict
-    def getData( self ):
+    def getData( self, element ):
 
         return { 
             'name': self.name,
@@ -140,7 +167,7 @@ class Input( Widget ):
         super( Input, self ).__init__( environment, template )
 
     # dict
-    def getData( self ):
+    def getData( self, element ):
 
         return { 'type': self.type }
 

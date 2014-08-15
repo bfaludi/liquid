@@ -3,7 +3,7 @@
     {% if e.getAbsName() %}name="{{ e.getAbsName() }}"{% endif %}
     class="{% if e.getState().isError() %}error{% endif %}"
 >
-    {% include 'error/fieldset.jinja2' %}
+    {% include 'errors/fieldset.jinja2' %}
     {% if e.getLegend() %}
     <div class="legend">
         {{ e.getLegend()|default('',True)|escape }}

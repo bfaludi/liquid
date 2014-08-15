@@ -11,13 +11,6 @@
     {% if e.getState().isFocus() %}autofocus{% endif %}
     autocomplete="off"
 >
-    {% for option in e.getOptions() %}
-    <option 
-        value="{% if option.getValue( e ) is not none %}{{ option.getValue( e )|escape }}{% endif %}" 
-        {% if ( not e.isMultiple() and option.getValue( e ) == e.getValue() ) or ( e.isMultiple() and option.getValue( e ) in e.getValue() ) %}selected{% endif %}
-    >
-        {{ option.getLabel()|escape }}
-    </option>
-    {% endfor %}
+    {{ e.renderOptions() }}
 </select>
 {% endblock %}

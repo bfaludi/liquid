@@ -1,5 +1,5 @@
 
-import pycountry, inspect, os, datetime
+import pycountry, inspect, os, datetime, requests, json, codecs
 from flask import *
 from liquid4m import *
 from functools import wraps
@@ -351,6 +351,23 @@ def select_fields():
                 ( 21, 'Vocal' ),
             ])
 
+        # list<fields.options.MultiDimensionalOption>
+        def getFoursquareCategories():
+
+            def getCategory( categories ):
+
+                for category in categories:
+                    # Hint: Use MultiDimensionalOption for multiple level
+                    # option lists.
+                    yield fields.options.MultiDimensionalOption(
+                        category['id'],
+                        category['name'],
+                        options = getCategory( category.get('categories', []) )
+                    )
+
+            data = json.load( codecs.open('static/4sq.json','r','utf-8') )
+            return getCategory( data.get('response',{}).get('categories',[]) )
+
         active = fields.Select(
             label = 'Active',
             type = fields.types.Boolean(),
@@ -379,6 +396,44 @@ def select_fields():
             # Hint: define just the function name and it will be evaluated when
             # the form is created.
             options = getMusicGenres 
+        )
+
+        favourite_sub_genres = fields.Select(
+            label = 'Age group',
+            options = [
+                fields.options.Option( '-9', 'Children, under 9 year' ),
+                # Hint: Use OptionGroup for two-level grouping
+                fields.options.OptionGroup(
+                    'Adolescents',
+                    options = [
+                        fields.options.Option( '10-14', '10-14', disabled = True ),
+                        fields.options.Option( '15-18', '15-18' ),
+                    ]
+                ),
+                fields.options.OptionGroup(
+                    'Adults',
+                    options = [
+                        fields.options.Option( '19-25', '19-25' ),
+                        fields.options.Option( '26-35', '26-35' ),
+                        fields.options.Option( '36-45', '36-45' ),
+                    ]
+                ),
+                fields.options.OptionGroup(
+                    'Middle and Older age',
+                    # Hint: You can disable the whole group
+                    disabled = True,
+                    options = [
+                        fields.options.Option( '46-60', '46-60' ),
+                        fields.options.Option( '60-', 'older then 60 year' ),
+                    ]
+                ),
+            ]
+        )
+
+        interests_4sq_ids = fields.Select(
+            label = 'Interests in 4sq',
+            multiple = True,
+            options = getFoursquareCategories
         )
 
     f = form.Form( 

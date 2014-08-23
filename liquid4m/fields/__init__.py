@@ -98,7 +98,7 @@ class Field( elements.Element ):
             self.validate()
             return True, []
 
-        except exceptions.ValidationError, e:
+        except exceptions.ValidationError as e:
             return False, [( self.getName(), e.msg )]
 
     # void
@@ -411,3 +411,6 @@ class Radio( Select ):
             cls = cls,
         )
 
+class Autocomplete( Select ):
+
+    _default_widget = widgets.Autocomplete,

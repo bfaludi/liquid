@@ -139,7 +139,7 @@ class FieldSet( elements.Element, elements.ElementCollector ):
             try:
                 validator.validate( self )
             
-            except exceptions.ValidationError, e:
+            except exceptions.ValidationError as e:
                 errors += [( self.getName(), e.msg )] 
 
         if len( errors ) != 0:
@@ -152,8 +152,8 @@ class FieldSet( elements.Element, elements.ElementCollector ):
             self.validate()
             return True, []
 
-        except exceptions.ValidationCollectionError, e:
+        except exceptions.ValidationCollectionError as e:
             return False, e.errors
 
-        except exceptions.ValidationError, e:
+        except exceptions.ValidationError as e:
             return False, [ ( self.getName(), e.msg ) ]

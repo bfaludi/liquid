@@ -428,7 +428,7 @@ class Range( Validator ):
         try:
             return self.validators.isValid( element )
 
-        except ValidationError, e:
+        except ValidationError as e:
             if self.msg:
                 return False
 
@@ -544,7 +544,7 @@ class Length( Validator ):
         try:
             return self.validators.isValid( element )
 
-        except ValidationError, e:
+        except ValidationError as e:
             if self.msg:
                 return False
 

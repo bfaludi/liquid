@@ -191,3 +191,7 @@ class Radio( Widget ):
     default_template = 'radio.jinja2'
     default_error_widget = InlineError
 
+class Autocomplete( Widget ):
+
+    default_template = 'autocomplete.jinja2'
+    default_error_widget = InlineError

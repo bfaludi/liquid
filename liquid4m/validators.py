@@ -279,7 +279,7 @@ class Or( Validator ):
 
                 return True
 
-            except ValidationError, e:
+            except ValidationError as e:
                 last_msg = e.msg
 
         raise ValidationError( e.msg )

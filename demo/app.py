@@ -864,6 +864,40 @@ def allof_validator():
     # Use f.render to return the renderer function
     return f
 
+@app.route( '/autocomplete_field', methods = ['GET','POST'] )
+@demo('Autocomplete Field')
+def autocomplete_field():
+
+    class SchemaFieldSet( fieldsets.FieldSet ):
+
+        _default_validators = fieldsets.validators.AllOf()
+
+        country_code = fields.Autocomplete( 
+            label = 'Country',
+            options = fields.options.generate( ( c.alpha2, c.name ) \
+                for c in pycountry.countries )
+        )
+
+        visited_country_codes = fields.Autocomplete( 
+            label = 'Visited Countries',
+            multiple = True,
+            options = fields.options.generate( ( c.alpha2, c.name ) \
+                for c in pycountry.countries )
+        )
+
+    f = form.Form( 
+        SchemaFieldSet(), 
+        dialects.flask( request.values )
+    )
+    if request.form.get('submit') and f.isValid():
+        # Do the magic and redirect
+        data = f.value
+
+        pass
+
+    # Use f.render to return the renderer function
+    return f
+
 if __name__ == '__main__':
     app.run(
         host = '0.0.0.0',

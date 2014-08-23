@@ -19,6 +19,7 @@
                 <label for='_fields'>Fields</label>
                 <input type='checkbox' name='_togglemenu' id='_fields' checked>
                 <ol>
+                    <li><a href="{{ url_for('.autocomplete_field') }}">Autocomplete</a></li>
                     <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox</a></li>
                     <li><a href="{{ url_for('.input_fields') }}">Input</a></li>
                     <li><a href="{{ url_for('.radio_field') }}">Radio</a></li>
@@ -68,6 +69,7 @@
     <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/widget.js') }}"></script>
     <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/mouse.js') }}"></script>
     <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/draggable.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/chosen/chosen.jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.js') }}"></script>
     <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='liquid4m/js/liquid.js') }}"></script>

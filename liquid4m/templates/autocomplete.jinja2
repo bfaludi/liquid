@@ -4,7 +4,7 @@
     id="{{ e.getID()|escape }}"
     name="{{ e.getAbsName()|escape }}"
     placeholder="{{ e.getPlaceholder()|default('',True)|escape }}"
-    class="select {% if e.getState().isError() %}error{% endif %}"
+    class="autocomplete {% if e.getState().isError() %}error{% endif %}"
     {% if e.isMultiple() %}multiple{% endif %}
     {% if e.getState().isReadonly() %}readonly{% endif %}
     {% if e.getState().isDisabled() %}disabled{% endif %}

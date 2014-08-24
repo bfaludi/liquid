@@ -6,7 +6,7 @@
     "modernizr": "~2.8.2",
     "normalize.css": "~3.0.1",
     "jquery-ui": "~1.11.0",
-    "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
+    "select2": "https://github.com/ivaynberg/select2/archive/3.5.1.zip"
   },
   "overrides": {
     "modernizr": {

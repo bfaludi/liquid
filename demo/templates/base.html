@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='liquid4m/bower_components/normalize.css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='liquid4m/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery/dist/jquery.js') }}"</script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/core.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/mouse.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/draggable.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/bower_components/select2/select2.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='liquid4m/js/liquid.js') }}"></script>
     <title>Liquid Form Management</title>
 </head>
 <body>
@@ -23,7 +32,7 @@
                     <li><a href="{{ url_for('.checkbox_fields') }}">Checkbox</a></li>
                     <li><a href="{{ url_for('.input_fields') }}">Input</a></li>
                     <li><a href="{{ url_for('.radio_field') }}">Radio</a></li>
-                    <li><a href="{{ url_for('.select_fields') }}">Select and Multiple</a></li>
+                    <li><a href="{{ url_for('.select_fields') }}">Select</a></li>
                 </ol>
             </li>
             <li>
@@ -64,13 +73,4 @@
         {% block content %}
         {% endblock %}
     <section>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery/dist/jquery.js') }}"</script>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/core.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/widget.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/mouse.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/jquery-ui/ui/draggable.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/bower_components/chosen/chosen.jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/js/vendor/dropkick.jquery.js') }}"></script>
-    <script src="{{ url_for('static', filename='liquid4m/js/liquid.js') }}"></script>
 </body>

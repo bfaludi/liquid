@@ -36,6 +36,7 @@ class Field( elements.Element ):
         self._placeholder = placeholder
         self._hint = hint
         self._type = type or self._default_type()
+        self._value = None
 
         self.setValue( value )
 
@@ -414,3 +415,101 @@ class Radio( Select ):
 class Autocomplete( Select ):
 
     _default_widget = widgets.Autocomplete,
+
+    # void
+    def __init__( self, options, name = None, value = None, label = None, \
+                  multiple = False, placeholder = None, hint = None, hidden = False, \
+                  readonly = False, disabled = False, focus = False, required = False, \
+                  error = None, widget = None, validators = None, cls = None, \
+                  min_search_length = 0, extendable = False ):
+
+        self._min_search_length = int( min_search_length )
+        self._extendable = extendable
+
+        super( Autocomplete, self ).__init__( 
+            name = name, 
+            value = value,
+            label = label,
+            placeholder = placeholder,
+            hint = hint,
+            hidden = hidden, 
+            required = required,
+            readonly = readonly, 
+            disabled = disabled,
+            error = error, 
+            focus = focus,
+            type = types.String(),
+            widget = widget,
+            validators = validators,
+            multiple = multiple,
+            options = options,
+            cls = cls,
+        )
+        self._init.update({
+            'min_search_length': min_search_length,
+            'extendable': extendable
+        })
+
+    # list<type>
+    def getExtendedOptionsValue( self ):
+
+        if self.isMultiple():
+            return unicode([ option.getValue( self ) for option in self.getOptions() ])
+
+        option_list = [ option for option in self.getOptions() ]
+        if self.getValue() is not None:
+            success = False
+            for option in option_list:
+                if option.getLabel() == self.getValue():
+                    success = True
+                    break
+
+            if not success:
+                option_list.append( options.Value( self.getValue() ) )
+
+        return u'[{}]'.format( u','.join([ '{ id: "%(value)s", text: "%(label)s" }' % {
+            'value': option.getValue( self ) or u'',
+            'label': option.getLabel( self )
+        } for option in option_list ]) )
+
+    # type
+    def getExtendedValue( self ):
+
+        if self.isMultiple():
+            return u','.join( self.getValue() )
+
+        return self.getValue()
+
+    # void
+    def _setValue( self, value ):
+
+        if not self.isExtendable():
+            return super( Autocomplete, self )._setValue( value )
+
+        if self.isMultiple():
+            if isinstance( value, list ) or isinstance( value, set ) or isinstance( value, tuple ): 
+                self._value = { self.getTypeValue( v ) for v in value }
+                return
+
+            try:
+                if self.getTypeValue( value ) is not None:
+                    self._value = { self.getTypeValue( v ) for v in value.split(u',') }
+                    return
+
+            except:
+                pass
+        
+            self._value = set([])
+
+        else:
+            self._value = self.getTypeValue( value )
+
+    # int
+    def getMinSearchLength( self ):
+
+        return self._min_search_length
+
+    # bool
+    def isExtendable( self ):
+
+        return self._extendable

@@ -1,5 +1,10 @@
 {% extends '_field.jinja2' %}
 {% block element %}
+<script>
+$(document).ready(function () {
+    $('select.select').dropkick({ mobile: true });
+});
+</script>
 <select 
     id="{{ e.getID()|escape }}"
     name="{{ e.getAbsName()|escape }}"

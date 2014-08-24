@@ -61,6 +61,7 @@ def index():
 <script src="static/liquid4m/bower_components/jquery-ui/ui/widget.js"></script>
 <script src="static/liquid4m/bower_components/jquery-ui/ui/mouse.js"></script>
 <script src="static/liquid4m/bower_components/jquery-ui/ui/draggable.js"></script>
+<script src="static/liquid4m/bower_components/select2/select2.js"></script>
 <script src="static/liquid4m/js/vendor/dropkick.js"></script>
 <script src="static/liquid4m/js/vendor/dropkick.jquery.js"></script>
 <script src="static/liquid4m/js/liquid.js"></script>""", lexer = HtmlLexer )
@@ -323,7 +324,7 @@ def input_fields():
     return f
 
 @app.route( '/select_fields', methods = ['GET','POST'] )
-@demo('Select and Multiple Select Fields')
+@demo('Select Fields')
 def select_fields():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
@@ -870,19 +871,85 @@ def autocomplete_field():
 
     class SchemaFieldSet( fieldsets.FieldSet ):
 
-        _default_validators = fieldsets.validators.AllOf()
-
         country_code = fields.Autocomplete( 
             label = 'Country',
-            options = fields.options.generate( ( c.alpha2, c.name ) \
+            # Hint: Number of characters necessary to start a search.
+            min_search_length = 2,
+            options = [ fields.options.Empty() ] + fields.options.generate( ( c.alpha2, c.name ) \
                 for c in pycountry.countries )
+        )
+
+        age_group = fields.Autocomplete(
+            label = 'Age group',
+            options = [
+                fields.options.Option( '-9', 'Children, under 9 year' ),
+                # Hint: Use OptionGroup for two-level grouping.
+                fields.options.OptionGroup(
+                    'Adolescents',
+                    options = [
+                        fields.options.Option( '10-14', '10-14', disabled = True ),
+                        fields.options.Option( '15-18', '15-18' ),
+                    ]
+                ),
+                fields.options.OptionGroup(
+                    'Adults',
+                    options = [
+                        fields.options.Option( '19-25', '19-25' ),
+                        fields.options.Option( '26-35', '26-35' ),
+                        fields.options.Option( '36-45', '36-45' ),
+                    ]
+                ),
+                fields.options.OptionGroup(
+                    'Middle and Older age',
+                    # Hint: You can disable the whole group
+                    disabled = True,
+                    options = [
+                        fields.options.Option( '46-60', '46-60' ),
+                        fields.options.Option( '60-', 'older then 60 year' ),
+                    ]
+                ),
+            ]
         )
 
         visited_country_codes = fields.Autocomplete( 
             label = 'Visited Countries',
+            # Hint: You can use multiple Autocomplete field as well.
             multiple = True,
+            # Hint: Number of characters necessary to start a search.
+            min_search_length = 2,
+            validators = fields.validators.Selected( max_selected = 3 ),
             options = fields.options.generate( ( c.alpha2, c.name ) \
                 for c in pycountry.countries )
+        )
+
+        tags = fields.Autocomplete(
+            label = 'Tags',
+            multiple = True,
+            # Hint: It allows to add your own choices
+            extendable = True,
+            # Hint: You can't define values in this mode
+            options = [ 
+                fields.options.Value('good'),
+                fields.options.Value('bad'),
+                fields.options.Value('great'),
+                fields.options.Value('horrible'),
+                fields.options.Value('terrible')
+            ]
+        )
+
+        credit_card = fields.Autocomplete(
+            label = 'Credit Card',
+            # Hint: It allows to add your own choices
+            extendable = True,
+            # Hint: You can't define values in this mode
+            options = [ 
+                fields.options.Value('Mastercard'),
+                fields.options.Value('Visa'),
+                fields.options.Value('American Express'),
+                fields.options.Value('Diners'),
+                fields.options.Value('HiperCard'),
+                fields.options.Value('GoodCard')
+            ]
         )
 
     f = form.Form( 

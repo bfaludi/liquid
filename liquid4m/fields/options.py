@@ -299,6 +299,24 @@ class MultiDimensionalOption( Option, OptionsInterface ):
         self._options = Options( options )
         super( MultiDimensionalOption, self ).__init__( value, label, disabled )
 
+class Value( Option ):
+
+    """
+    Empty Option.
+    """
+
+    # void
+    def __init__( self, value ):
+
+        """
+        Empty Option.
+
+        @param label: Option's label
+        @type label: unicode
+        """
+
+        super( Value, self ).__init__( value, value, False )
+
 class Empty( Option ):
 
     """

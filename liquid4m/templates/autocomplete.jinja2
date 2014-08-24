@@ -1,10 +1,18 @@
 {% extends '_field.jinja2' %}
 {% block element %}
+{% if not e.isExtendable() %}
+<script>
+$(document).ready(function () {
+  $("#{{ e.getID()|escape }}").select2({
+      minimumInputLength: {{ e.getMinSearchLength() }}
+  });
+});
+</script>
 <select 
     id="{{ e.getID()|escape }}"
     name="{{ e.getAbsName()|escape }}"
-    placeholder="{{ e.getPlaceholder()|default('',True)|escape }}"
-    class="autocomplete {% if e.getState().isError() %}error{% endif %}"
+    data-placeholder="{{ e.getPlaceholder()|default(' ',True)|escape }}"
+    class="{% if e.getState().isError() %}error{% endif %}"
     {% if e.isMultiple() %}multiple{% endif %}
     {% if e.getState().isReadonly() %}readonly{% endif %}
     {% if e.getState().isDisabled() %}disabled{% endif %}
@@ -13,4 +21,36 @@
 >
     {{ e.renderOptions() }}
 </select>
+{% else %}
+<script>
+$(document).ready(function () {
+  $("#{{ e.getID()|escape }}").select2({
+    {% if e.isMultiple() %}
+      minimumInputLength: {{ e.getMinSearchLength() }},
+      tags: {{ e.getExtendedOptionsValue() }},
+      tokenSeparators: [",", " "]
+    {% else %}
+      createSearchChoice: function(term, data) { 
+        if ($(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0) {
+        return {id:term, text:term};} 
+      },
+      allowClear: true,
+      data: {{ e.getExtendedOptionsValue() }}
+    {% endif %}
+  });
+});
+</script>
+<input 
+    type="hidden"
+    id="{{ e.getID()|escape }}"
+    name="{{ e.getAbsName()|escape }}"
+    value="{{ e.getExtendedValue()|default('',True)|escape }}"
+    data-placeholder="{{ e.getPlaceholder()|default(' ',True)|escape }}"
+    class="{% if e.getState().isError() %}error{% endif %}"
+    {% if e.getState().isReadonly() %}readonly{% endif %}
+    {% if e.getState().isDisabled() %}disabled{% endif %}
+    {% if e.getState().isFocus() %}autofocus{% endif %}
+    autocomplete="off"
+>
+{% endif %}
 {% endblock %}
